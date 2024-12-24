@@ -2,7 +2,6 @@ package br.com.badbit.droidchat.navigation
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,7 +18,7 @@ object SignInRoute
 object SignUpRoute
 
 @Composable
-fun ChatNavHost(modifier: Modifier = Modifier) {
+fun ChatNavHost() {
 
     val navController = rememberNavController()
 
