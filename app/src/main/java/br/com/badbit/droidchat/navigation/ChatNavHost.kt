@@ -1,28 +1,35 @@
 package br.com.badbit.droidchat.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.badbit.droidchat.ui.feature.splash.SplashRoute
+import kotlinx.serialization.Serializable
 
-const val SPLASH_ROUTE = "splash"
-const val SIGN_IN_ROUTE = "signIn"
-const val SIGN_UP_ROUTE = "signUp"
+@Serializable
+object SplashRoute
+
+@Serializable
+object SignInRoute
+
+@Serializable
+object SignUpRoute
 
 @Composable
-fun ChatNavHost(modifier: Modifier = Modifier) {
+fun ChatNavHost() {
 
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = SPLASH_ROUTE) {
-        composable(SPLASH_ROUTE) {
-
+    NavHost(navController = navController, startDestination = SplashRoute) {
+        composable<SplashRoute> {
+            SplashRoute()
         }
-        composable(SIGN_IN_ROUTE) {
-
+        composable<SignInRoute> {
+            Text(text = "SignIn")
         }
-        composable(SIGN_UP_ROUTE) {
+        composable<SignUpRoute> {
 
         }
     }

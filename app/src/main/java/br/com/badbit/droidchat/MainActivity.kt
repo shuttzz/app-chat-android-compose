@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import br.com.badbit.droidchat.navigation.ChatNavHost
+import br.com.badbit.droidchat.ui.ChatApp
 import br.com.badbit.droidchat.ui.theme.DroidChatTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DroidChatTheme {
-                ChatNavHost()
+                ChatApp()
             }
         }
     }
