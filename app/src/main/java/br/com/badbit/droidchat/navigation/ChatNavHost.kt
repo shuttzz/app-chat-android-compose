@@ -1,11 +1,12 @@
 package br.com.badbit.droidchat.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import br.com.badbit.droidchat.ui.feature.splash.SplashRoute
+import androidx.navigation.navOptions
+import br.com.badbit.droidchat.ui.feature.signin.SignInRouteUI
+import br.com.badbit.droidchat.ui.feature.splash.SplashRouteUI
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -24,10 +25,20 @@ fun ChatNavHost() {
 
     NavHost(navController = navController, startDestination = SplashRoute) {
         composable<SplashRoute> {
-            SplashRoute()
+            SplashRouteUI(
+                onNavigateToSignIn = {
+                    navController.navigate(
+                        route = SignInRoute,
+                        navOptions = navOptions {
+                            popUpTo(SplashRoute) {
+                                inclusive = true
+                            }
+                        })
+                }
+            )
         }
         composable<SignInRoute> {
-            Text(text = "SignIn")
+            SignInRouteUI()
         }
         composable<SignUpRoute> {
 
