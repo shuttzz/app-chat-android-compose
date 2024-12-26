@@ -1,10 +1,14 @@
 package br.com.badbit.droidchat.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import br.com.badbit.droidchat.navigation.extension.slideInTo
+import br.com.badbit.droidchat.navigation.extension.slideOutTo
 import br.com.badbit.droidchat.ui.feature.signin.SignInRouteUI
 import br.com.badbit.droidchat.ui.feature.splash.SplashRouteUI
 import kotlinx.serialization.Serializable
@@ -37,10 +41,28 @@ fun ChatNavHost() {
                 }
             )
         }
-        composable<SignInRoute> {
-            SignInRouteUI()
+        composable<SignInRoute>(
+            enterTransition = {
+                this.slideInTo(direction = AnimatedContentTransitionScope.SlideDirection.Right)
+            },
+            exitTransition = {
+                this.slideOutTo(direction = AnimatedContentTransitionScope.SlideDirection.Left)
+            }
+        ) {
+            SignInRouteUI(
+                navigateToSignUp = {
+                    navController.navigate(SignUpRoute)
+                }
+            )
         }
-        composable<SignUpRoute> {
+        composable<SignUpRoute>(
+            enterTransition = {
+                this.slideInTo(direction = AnimatedContentTransitionScope.SlideDirection.Left)
+            },
+            exitTransition = {
+                this.slideOutTo(direction = AnimatedContentTransitionScope.SlideDirection.Right)
+            }
+        ) {
 
         }
     }

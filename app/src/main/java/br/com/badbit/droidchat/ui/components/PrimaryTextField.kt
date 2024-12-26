@@ -3,7 +3,9 @@ package br.com.badbit.droidchat.ui.components
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -109,11 +111,14 @@ fun PrimaryTextField(
             )
         )
 
+        Spacer(modifier = Modifier.height(8.dp))
+
         errorMessage?.let {
             Text(
                 text = it,
                 modifier = Modifier.padding(start = 16.dp),
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.labelMedium
             )
         }
     }
@@ -130,6 +135,21 @@ private fun PrimaryTextFieldPreview() {
             placeholder = "Digita sua senha",
             leadingIcon = R.drawable.ic_safety,
             keyboardType = KeyboardType.Password
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PrimaryTextFieldErrorPreview() {
+    DroidChatTheme {
+        PrimaryTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = "Digita sua senha",
+            leadingIcon = R.drawable.ic_safety,
+            keyboardType = KeyboardType.Password,
+            errorMessage = "Deu ruim"
         )
     }
 }
