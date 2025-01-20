@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import br.com.badbit.droidchat.R
 import br.com.badbit.droidchat.ui.components.PrimaryButton
 import br.com.badbit.droidchat.ui.components.PrimaryTextField
@@ -37,7 +37,7 @@ import br.com.badbit.droidchat.ui.theme.DroidChatTheme
 
 @Composable
 fun SignInRouteUI(
-    viewModel: SignInViewModel = viewModel(),
+    viewModel: SignInViewModel = hiltViewModel(),
     navigateToSignUp: () -> Unit
 ) {
     val formState = viewModel.formState

@@ -1,7 +1,6 @@
 package br.com.badbit.droidchat.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,6 +10,7 @@ import br.com.badbit.droidchat.navigation.extension.slideInTo
 import br.com.badbit.droidchat.navigation.extension.slideOutTo
 import br.com.badbit.droidchat.ui.feature.signin.SignInRouteUI
 import br.com.badbit.droidchat.ui.feature.splash.SplashRouteUI
+import br.com.badbit.droidchat.ui.feature.signup.SignUpRouteUI
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -63,7 +63,7 @@ fun ChatNavHost() {
                 this.slideOutTo(direction = AnimatedContentTransitionScope.SlideDirection.Right)
             }
         ) {
-
+            SignUpRouteUI()
         }
     }
 

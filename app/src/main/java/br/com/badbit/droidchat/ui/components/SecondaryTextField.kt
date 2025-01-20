@@ -44,6 +44,7 @@ fun SecondaryTextField(
     extraText: String? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
+    errorText: String? = null
 ) {
 
     var inputText by remember {
@@ -82,64 +83,76 @@ fun SecondaryTextField(
         Surface(
             color = MaterialTheme.colorScheme.surface
         ) {
-            Row(
-                verticalAlignment = CenterVertically,
-                modifier = Modifier.bottomBorder(
-                    MaterialTheme.colorScheme.onSurfaceVariant,
-                    1.dp
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    Text(
-                        text = label,
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface
+            Column {
+                Row(
+                    verticalAlignment = CenterVertically,
+                    modifier = Modifier.bottomBorder(
+                        MaterialTheme.colorScheme.onSurfaceVariant,
+                        1.dp
                     )
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    Row(
-                        verticalAlignment = CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
                     ) {
-                        Box(
-                            modifier = Modifier.weight(1f)
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Row(
+                            verticalAlignment = CenterVertically
                         ) {
-                            innerTextField()
+                            Box(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                innerTextField()
+                            }
+                            extraText?.let {
+                                Text(
+                                    text = extraText,
+                                    modifier = Modifier.padding(4.dp),
+                                    color = ColorSuccess,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
-                        extraText?.let {
-                            Text(
-                                text = extraText,
-                                modifier = Modifier.padding(4.dp),
-                                color = ColorSuccess,
-                                style = MaterialTheme.typography.bodySmall,
-                                fontWeight = FontWeight.Bold
+                    }
+
+                    if (keyboardType == KeyboardType.Password) {
+                        val visibilityIcon = if (passwordVisibility) {
+                            R.drawable.ic_visibility
+                        } else {
+                            R.drawable.ic_visibility_off
+                        }
+
+                        IconButton(
+                            onClick = {
+                                passwordVisibility = !passwordVisibility
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(id = visibilityIcon),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
                 }
 
-                if (keyboardType == KeyboardType.Password) {
-                    val visibilityIcon = if (passwordVisibility) {
-                        R.drawable.ic_visibility
-                    } else {
-                        R.drawable.ic_visibility_off
-                    }
-
-                    IconButton(
-                        onClick = {
-                            passwordVisibility = !passwordVisibility
-                        }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = visibilityIcon),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                errorText?.let {
+                    Spacer(modifier = modifier.height(4.dp))
+                    Text(
+                        text = errorText,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
@@ -170,6 +183,21 @@ private fun SecondaryTextFieldPasswordPreview() {
             onValueChange = {},
             extraText = "Password matches",
             keyboardType = KeyboardType.Password,
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SecondaryTextFieldPasswordWithErrorPreview() {
+    DroidChatTheme {
+        SecondaryTextField(
+            label = "Password",
+            value = "",
+            onValueChange = {},
+            extraText = "Password matches",
+            keyboardType = KeyboardType.Password,
+            errorText = "Senha inválida"
         )
     }
 }
