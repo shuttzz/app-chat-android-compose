@@ -4,10 +4,13 @@ import br.com.badbit.droidchat.data.network.model.AuthRequest
 import br.com.badbit.droidchat.data.network.model.CreateAccountRequest
 import br.com.badbit.droidchat.data.network.model.ImageResponse
 import br.com.badbit.droidchat.data.network.model.TokenResponse
+import br.com.badbit.droidchat.data.network.model.UserReponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
+import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Headers
@@ -41,5 +44,11 @@ class NetworkDataSourceImpl @Inject constructor(
                 })
             }
         ).body()
+    }
+
+    override suspend fun authenticate(token: String): UserReponse {
+        return httpClient.get("authenticate") {
+            header(HttpHeaders.Authorization, "Bearer $token")
+        }.body()
     }
 }

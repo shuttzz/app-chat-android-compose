@@ -44,13 +44,22 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpRouteUI(
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: SignUpViewModel = hiltViewModel(),
+    onSignUpSuccess: () -> Unit,
 ) {
     val formState = viewModel.formState
     SignUpScreen(
         formState = formState,
         onFormEvent = viewModel::onFormEvent
     )
+
+    if (formState.isSignedUp) {
+        AppDialog(
+            onDismissRequest = onSignUpSuccess,
+            onConfirmButtonClick = onSignUpSuccess,
+            message = stringResource(id = R.string.feature_sign_up_success),
+        )
+    }
 
     formState.apiErrorMessageResId?.let { resId ->
         AppDialog(

@@ -4,6 +4,7 @@ import br.com.badbit.droidchat.data.network.model.AuthRequest
 import br.com.badbit.droidchat.data.network.model.CreateAccountRequest
 import br.com.badbit.droidchat.data.network.model.ImageResponse
 import br.com.badbit.droidchat.data.network.model.TokenResponse
+import br.com.badbit.droidchat.data.network.model.UserReponse
 
 interface NetworkDataSource {
 
@@ -13,4 +14,5 @@ interface NetworkDataSource {
 
     suspend fun uploadProfilePicture(filePath: String): ImageResponse
 
+    suspend fun authenticate(token: String): UserReponse
 }

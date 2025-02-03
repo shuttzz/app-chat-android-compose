@@ -22,19 +22,59 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleStartEffect
 import br.com.badbit.droidchat.R
+import br.com.badbit.droidchat.ui.components.AppDialog
 import br.com.badbit.droidchat.ui.theme.BackgroundGradient
 import br.com.badbit.droidchat.ui.theme.DroidChatTheme
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashRouteUI(
-    onNavigateToSignIn: () -> Unit
+    viewModel: SplashViewModel = hiltViewModel(),
+    onNavigateToSignIn: () -> Unit,
+    onNavigateToHome: () -> Unit,
+    onCloseApp: () -> Unit
 ) {
     SplashScreen()
+
+    /**
+     * Dessa maneira como apresentado no método abaixo a gente consegue trabalhar com o ciclo de vida
+     */
+    LifecycleStartEffect(Unit) {
+        viewModel.checkSession()
+
+        /**
+         * Esse método é executado quando o ciclo de vida em questão é finalizado
+         */
+        onStopOrDispose {  }
+    }
+
     LaunchedEffect(Unit) {
-        delay(2000)
-        onNavigateToSignIn()
+        viewModel.authenticationState.collect { authenticationState ->
+            when (authenticationState) {
+                SplashViewModel.AuthenticationState.UserAuthenticated -> {
+                    onNavigateToHome()
+                }
+                SplashViewModel.AuthenticationState.UserNotAuthenticated -> {
+                    onNavigateToSignIn()
+                }
+            }
+        }
+    }
+
+    val showErrorDialog = viewModel.showErrorDialogState
+    if (showErrorDialog) {
+        AppDialog(
+            onDismissRequest = {},
+            onConfirmButtonClick = {
+                viewModel.dismissErrorDialog()
+                onCloseApp()
+            },
+            message = stringResource(R.string.error_message_when_opening_app),
+            confirmButtonText = stringResource(R.string.error_confirm_button_close_app)
+        )
     }
 }
 

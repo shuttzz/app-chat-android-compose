@@ -122,6 +122,11 @@ class SignUpViewModel @Inject constructor(
                             profilePictureId = image.id
                         },
                         onFailure = {
+                            formState = formState.copy(
+                                isLoading = false,
+                                profilePictureUri = null,
+                                apiErrorMessageResId = R.string.error_message_profile_picture_uploading_failed
+                            )
                             errorWhenUploadingProfilePicture = true
                         }
                     )
@@ -153,9 +158,9 @@ class SignUpViewModel @Inject constructor(
                                 when (it.statusCode) {
                                     400 -> R.string.error_message_api_form_validation_failed
                                     409 -> R.string.error_message_user_with_username_already_exists
-                                    else -> R.string.common_generic_error_title
+                                    else -> R.string.common_generic_error_message
                                 }
-                            } else R.string.common_generic_error_title
+                            } else R.string.common_generic_error_message
                         )
                     }
                 )

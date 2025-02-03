@@ -1,7 +1,10 @@
 package br.com.badbit.droidchat.navigation
 
+import android.app.Activity
+import android.widget.Toast
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,6 +29,7 @@ object SignUpRoute
 fun ChatNavHost() {
 
     val navController = rememberNavController()
+    val activity = LocalContext.current as? Activity
 
     NavHost(navController = navController, startDestination = SplashRoute) {
         composable<SplashRoute> {
@@ -38,6 +42,16 @@ fun ChatNavHost() {
                                 inclusive = true
                             }
                         })
+                },
+                onNavigateToHome = {
+                    Toast.makeText(
+                        navController.context,
+                        "Navigate to home",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                },
+                onCloseApp = {
+                    activity?.finish()
                 }
             )
         }
@@ -49,9 +63,17 @@ fun ChatNavHost() {
                 this.slideOutTo(direction = AnimatedContentTransitionScope.SlideDirection.Left)
             }
         ) {
+            val context = LocalContext.current
             SignInRouteUI(
                 navigateToSignUp = {
                     navController.navigate(SignUpRoute)
+                },
+                navigateToHome = {
+                    Toast.makeText(
+                        context,
+                        "Navigate to home",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             )
         }
@@ -63,7 +85,11 @@ fun ChatNavHost() {
                 this.slideOutTo(direction = AnimatedContentTransitionScope.SlideDirection.Right)
             }
         ) {
-            SignUpRouteUI()
+            SignUpRouteUI(
+                onSignUpSuccess = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 
