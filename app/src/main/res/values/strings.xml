@@ -5,10 +5,13 @@
     <string name="common_generic_error_message">Tente novamente ou reporte um problema</string>
     <string name="common_ok">OK</string>
     <string name="common_add_profile_photo">Adicionar foto de perfil</string>
+    <string name="common_add_profile_photo_optimizing">Otimizando…</string>
     <string name="common_take_photo">Tirar foto</string>
     <string name="common_upload_photo">Galeria</string>
 
     <string name="error_message_invalid_username_or_password">E-mail ou senha incorretos</string>
+    <string name="error_message_profile_picture_uploading_failed">Erro ao fazer upload da foto de perfil, tente novamente (formatos aceitos: jpg, jpeg, png)</string>
+    <string name="error_message_api_form_validation_failed">Erro de validação de formulário, confira os dados e tente novamente</string>
     <string name="error_message_user_with_username_already_exists">Usuário com o e-mail fornecido já existe no sistema</string>
     <string name="error_message_field_blank">%1s é obrigatório</string>
     <string name="error_message_password_less_than_eight_chars">Senha deve conter no mínimo 8 caracteres</string>
@@ -32,7 +35,10 @@
     <string name="feature_sign_up_passwords_match">as senhas são iguais</string>
     <string name="feature_sign_up_has_account">Já possui uma conta?</string>
     <string name="feature_sign_up_login_here">Fazer login</string>
+    <string name="feature_sign_up_success">Cadastro realizado com sucesso. Faça login para continuar</string>
 
     <string name="splash_safety_info">Mensagens seguras, criptografadas e privadas</string>
+    <string name="error_message_when_opening_app">Ocorreu um erro inesperado ao abrir o aplicativo\n\nPor favor, tente novamente mais tarde.</string>
+    <string name="error_confirm_button_close_app">Fechar aplicativo</string>
 
 </resources>

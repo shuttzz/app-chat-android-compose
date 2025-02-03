@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.badbit.droidchat.R
+import br.com.badbit.droidchat.ui.extension.getVisualTransformationForPassword
 import br.com.badbit.droidchat.ui.theme.DroidChatTheme
 
 @Composable
@@ -83,15 +84,7 @@ fun PrimaryTextField(
                     )
                 }
             },
-            visualTransformation = if (keyboardType == KeyboardType.Password) {
-                if (passwordVisibility) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                }
-            } else {
-                VisualTransformation.None
-            },
+            visualTransformation = keyboardType.getVisualTransformationForPassword(visibility = passwordVisibility),
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
                 imeAction = imeAction
